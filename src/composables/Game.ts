@@ -1,13 +1,5 @@
 import { useGameStore } from "@/stores/GameStore";
-import {
-    BUTTON0_KEY,
-    BUTTON1_KEY,
-    BUTTON2_KEY,
-    BUTTON3_KEY,
-    BUTTON4_KEY,
-    BUTTON5_KEY,
-    BUTTON6_KEY,
-} from "../util/constants";
+import { BUTTON_KEY } from "../util/constants";
 import { useConfigStore } from "@/stores/ConfigStore";
 
 export const game = () => {
@@ -17,28 +9,20 @@ export const game = () => {
 const registerEventListeners = () => {
     addEventListener("keydown", (event) => {
         if (!useConfigStore().isStart) return;
-        if (event.key === BUTTON0_KEY) {
-            useGameStore().setButton0Pressed(true);
-        } else if (event.key === BUTTON1_KEY) {
-            useGameStore().setButton1Pressed(true);
-        } else if (event.key === BUTTON2_KEY) {
-            useGameStore().setButton2Pressed(true);
-        } else if (event.key === BUTTON3_KEY) {
-            useGameStore().setButton3Pressed(true);
-        } else if (event.key === BUTTON4_KEY) {
-            useGameStore().setButton4Pressed(true);
-        } else if (event.key === BUTTON5_KEY) {
-            useGameStore().setButton5Pressed(true);
-        } else if (event.key === BUTTON6_KEY) {
-            useGameStore().setButton6Pressed(true);
-        } else {
-            return;
+        for (let i = 0; i < useGameStore().buttonPressed.length; i++) {
+            if (event.key === BUTTON_KEY[i]) {
+                useGameStore().setButtonPressed(i, true);
+            }
         }
+        // 一旦全ボタンを離さないと次のノーツが押せないようにする
+        if (!useGameStore().canGoNext) return;
+
         const notes: number[] = [];
         for (let i = 0; i < useGameStore().notesList.length; i++) {
             notes.push(useGameStore().notesList[i][0]);
         }
         if (isPressNotes(notes)) {
+            useGameStore().setCanGoNext(false);
             // ノーツを削除
             for (let i = 0; i < useGameStore().notesList.length; i++) {
                 useGameStore().notesList[i].shift();
@@ -51,21 +35,15 @@ const registerEventListeners = () => {
     });
 
     addEventListener("keyup", (event) => {
-        if (event.key === BUTTON0_KEY) {
-            useGameStore().setButton0Pressed(false);
-        } else if (event.key === BUTTON1_KEY) {
-            useGameStore().setButton1Pressed(false);
-        } else if (event.key === BUTTON2_KEY) {
-            useGameStore().setButton2Pressed(false);
-        } else if (event.key === BUTTON3_KEY) {
-            useGameStore().setButton3Pressed(false);
-        } else if (event.key === BUTTON4_KEY) {
-            useGameStore().setButton4Pressed(false);
-        } else if (event.key === BUTTON5_KEY) {
-            useGameStore().setButton5Pressed(false);
-        } else if (event.key === BUTTON6_KEY) {
-            useGameStore().setButton6Pressed(false);
+        for (let i = 0; i < useGameStore().buttonPressed.length; i++) {
+            if (event.key === BUTTON_KEY[i]) {
+                useGameStore().setButtonPressed(i, false);
+            }
+            useGameStore().buttonPressed[i] = false;
         }
+        // 全てのボタンを離したら次のノーツが押せるようにする
+        if (useGameStore().buttonPressed.every((pressed) => !pressed))
+            useGameStore().setCanGoNext(true);
     });
 };
 

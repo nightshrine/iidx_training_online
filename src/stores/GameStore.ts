@@ -7,30 +7,12 @@ export const useGameStore = defineStore("keydown", {
         buttonPressed: [false, false, false, false, false, false, false],
         // ノーツの情報を保持する配列
         notesList: [[]] as number[][],
-        // 押したボタンが正しいかどうか
-        isCorrect: false,
+        // 次に進んでいいかどうか
+        canGoNext : true,
     }),
     actions: {
-        setButton0Pressed(pressed: boolean) {
-            this.buttonPressed[0] = pressed;
-        },
-        setButton1Pressed(pressed: boolean) {
-            this.buttonPressed[1] = pressed;
-        },
-        setButton2Pressed(pressed: boolean) {
-            this.buttonPressed[2] = pressed;
-        },
-        setButton3Pressed(pressed: boolean) {
-            this.buttonPressed[3] = pressed;
-        },
-        setButton4Pressed(pressed: boolean) {
-            this.buttonPressed[4] = pressed;
-        },  
-        setButton5Pressed(pressed: boolean) {
-            this.buttonPressed[5] = pressed;
-        },
-        setButton6Pressed(pressed: boolean) {
-            this.buttonPressed[6] = pressed;
+        setButtonPressed(buttonNum: number, pressed: boolean) {
+            this.buttonPressed[buttonNum] = pressed;
         },
         // ノーツの情報をセットする
         setNotesList(notesList: number[][]) {
@@ -38,6 +20,9 @@ export const useGameStore = defineStore("keydown", {
         },
         setNotesListDefault() {
             this.notesList = [[]];
+        },
+        setCanGoNext(canGoNext: boolean) {
+            this.canGoNext = canGoNext;
         }
     },
 });
