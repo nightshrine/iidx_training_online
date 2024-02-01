@@ -5,14 +5,14 @@
         <!-- ゲーム画面 -->
         <GameField />
         <!-- 結果表示 -->
-        <!-- <Result /> -->
+        <Result />
     </main>
 </template>
 
 <script setup lang="ts">
 import Config from "./components/Config.vue";
 import GameField from "./components/GameField.vue";
-// import Result from './components/Result.vue'
+import Result from './components/Result.vue'
 </script>
 
 <style scoped>
@@ -24,7 +24,7 @@ body {
 }
 
 main {
-    width: 1000px;
+    width: 1200px;
     height: 780px;
     margin: 0 auto;
     display: flex;
