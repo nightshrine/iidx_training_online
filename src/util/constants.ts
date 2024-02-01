@@ -5,7 +5,7 @@ export const NOTE_MOTION_RANGE = 624;
 // ノーツの高さ
 export const NOTE_HEIGHT = 10;
 // レーンに対応するボタンキーコード
-export const BUTTON_KEY = ['Control', 's', 'd', 'o', '.', '-', '['];
+export const BUTTON_KEY = ['Control', 'a', 's', 'o', '.', '-', '['];
 // 設定の初期値
 export const DEFAULT_QUESTION_NUM = 15;
 export const DEFAULT_1NOTES_RATE = 0;
