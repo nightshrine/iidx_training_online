@@ -53,7 +53,10 @@ const isPressNotes = (notes: number[]) => {
     for (let i = 0; i < notes.length; i++) {
         if (notes[i] === 1 && buttonPressed[i]) {
             judgeList.push(true);
-        } else if (notes[i] === 0) {
+        // 関係ないボタンを押してたらfalse
+        } else if (notes[i] === 0 && buttonPressed[i]) {
+            judgeList.push(false);
+        } else if (notes[i] === 0 && !buttonPressed[i]) {
             continue;
         } else {
             judgeList.push(false);
