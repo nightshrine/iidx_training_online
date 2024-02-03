@@ -27,9 +27,8 @@ import { ref } from "vue";
 import ConfigInputToPinia from "../config/ConfigInputToPinia.vue";
 import ConfigInput from "../config/ConfigInput.vue";
 import { useConfigStore } from "../stores/ConfigStore";
-import type { IConfigInput, IConfigInputToPinia } from "@/util/types";
+import type { IConfigInputDict, IConfigInputToPinia } from "@/util/types";
 import { makeNotesList } from "@/composables/MakeNotesData";
-import { game } from "@/composables/Game";
 import { 
     DEFAULT_QUESTION_NUM, 
     DEFAULT_1NOTES_RATE,
@@ -39,6 +38,7 @@ import {
     DEFAULT_5NOTES_RATE,
     DEFAULT_6NOTES_RATE,
 } from "@/util/constants";
+import { startCountDown } from "@/composables/Timer";
 
 const configInputToPinia = ref<IConfigInputToPinia>({
     title: "ノーツの間隔",
@@ -48,7 +48,7 @@ const configInputToPinia = ref<IConfigInputToPinia>({
     defaultValue: useConfigStore().notesDistance,
 });
 
-const configInputDict = ref<IConfigInput>({
+const configInputDict = ref<IConfigInputDict>({
     "問題数": DEFAULT_QUESTION_NUM,
     "1notes": DEFAULT_1NOTES_RATE,
     "2notes": DEFAULT_2NOTES_RATE,
@@ -59,9 +59,9 @@ const configInputDict = ref<IConfigInput>({
 });
 
 const start = () => {
+    // ノーツリストを作成
     makeNotesList(configInputDict.value);
-    useConfigStore().setIsStart(true);
-    game();
+    startCountDown();
 }
 
 </script>

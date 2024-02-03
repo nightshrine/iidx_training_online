@@ -14,3 +14,10 @@ export const DEFAULT_3NOTES_RATE = 0;
 export const DEFAULT_4NOTES_RATE = 0;
 export const DEFAULT_5NOTES_RATE = 0;
 export const DEFAULT_6NOTES_RATE = 0;
+// 何分の1秒でタイムを管理するか
+export const MSEC: number = 1000;
+export const TIME_UNIT: number = 100;
+// リザルトのプロパティ名
+export const TIME: string = 'タイム';
+// カウントダウンの秒数
+export const COUNTDOWN_SEC: number = 3;

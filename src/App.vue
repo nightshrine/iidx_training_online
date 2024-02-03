@@ -6,6 +6,8 @@
         <GameField />
         <!-- 結果表示 -->
         <Result />
+        <!-- カウントダウン -->
+        <CountDown />
     </main>
 </template>
 
@@ -13,6 +15,7 @@
 import Config from "./components/Config.vue";
 import GameField from "./components/GameField.vue";
 import Result from './components/Result.vue'
+import CountDown from './components/CountDown.vue'
 </script>
 
 <style scoped>
@@ -30,6 +33,7 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: start;
+    position: relative;
 }
 </style>
 ./stores/GameStore

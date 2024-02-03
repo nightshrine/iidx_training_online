@@ -1,17 +1,17 @@
 import { useGameStore } from "@/stores/GameStore";
 import { LANE_NUM } from "@/util/constants";
-import type { IConfigInput } from "@/util/types";
+import type { IConfigInputDict } from "@/util/types";
 
-export const makeNotesList = (configInput: IConfigInput): void => {
+export const makeNotesList = (configInputDict: IConfigInputDict): void => {
     useGameStore().setNotesListDefault();
-    const questionNum = configInput["問題数"];
+    const questionNum = configInputDict["問題数"];
     const notesRateList = [
-        configInput["1notes"],
-        configInput["2notes"],
-        configInput["3notes"],
-        configInput["4notes"],
-        configInput["5notes"],
-        configInput["6notes"],
+        configInputDict["1notes"],
+        configInputDict["2notes"],
+        configInputDict["3notes"],
+        configInputDict["4notes"],
+        configInputDict["5notes"],
+        configInputDict["6notes"],
     ];
 
     // ノーツリストをレーンごとに保持する

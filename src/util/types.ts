@@ -1,4 +1,4 @@
-export interface IConfigInput {
+export interface IConfigInputDict {
     [key: string]: number;
 }
 
