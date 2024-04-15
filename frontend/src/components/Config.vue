@@ -4,6 +4,7 @@
             <h1>設定</h1>
         </div>
         <div id="setting_form">
+            <ConfigMode></ConfigMode>
             <ConfigInputToPinia
                 :title="configInputToPinia.title"
                 :setNotes="configInputToPinia.setNotes"
@@ -24,22 +25,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref, watch } from "vue";
 import ConfigInputToPinia from "./config/ConfigInputToPinia.vue";
 import ConfigInput from "./config/ConfigInput.vue";
 import { useConfigStore } from "../stores/ConfigStore";
-import type { IConfigInputDict, IConfigInputToPinia } from "@/util/types";
+import type {
+    IConfigInputDict,
+    IConfigInputToPinia,
+    IDataName,
+    ILevel,
+    IMode,
+} from "@/util/types";
 import { makeNotesList } from "@/composables/MakeNotesData";
-import {
-    DEFAULT_QUESTION_NUM,
-    DEFAULT_1NOTES_RATE,
-    DEFAULT_2NOTES_RATE,
-    DEFAULT_3NOTES_RATE,
-    DEFAULT_4NOTES_RATE,
-    DEFAULT_5NOTES_RATE,
-    DEFAULT_6NOTES_RATE,
-} from "@/util/constants";
+import { ConfigDefault, FREE_MODE, Level, Mode } from "@/util/constants";
 import { startCountDown } from "@/composables/Timer";
+import ConfigMode from "./config/ConfigMode.vue";
 
 const configInputToPinia = ref<IConfigInputToPinia>({
     title: "ノーツの間隔",
@@ -49,14 +49,37 @@ const configInputToPinia = ref<IConfigInputToPinia>({
     defaultValue: useConfigStore().notesDistance,
 });
 
-const configInputDict = ref<IConfigInputDict>({
-    問題数: DEFAULT_QUESTION_NUM,
-    "1notes": DEFAULT_1NOTES_RATE,
-    "2notes": DEFAULT_2NOTES_RATE,
-    "3notes": DEFAULT_3NOTES_RATE,
-    "4notes": DEFAULT_4NOTES_RATE,
-    "5notes": DEFAULT_5NOTES_RATE,
-    "6notes": DEFAULT_6NOTES_RATE,
+const getDefaultConfigInputDict = (data: IDataName): IConfigInputDict => {
+    return {
+        問題数: ConfigDefault[data].QUESTION_NUM,
+        "1notes": ConfigDefault[data].NOTES1_RATE,
+        "2notes": ConfigDefault[data].NOTES2_RATE,
+        "3notes": ConfigDefault[data].NOTES3_RATE,
+        "4notes": ConfigDefault[data].NOTES4_RATE,
+        "5notes": ConfigDefault[data].NOTES5_RATE,
+        "6notes": ConfigDefault[data].NOTES6_RATE,
+    };
+};
+
+const configInputDict = ref<IConfigInputDict>(
+    getDefaultConfigInputDict(FREE_MODE)
+);
+
+const selectMode = computed((): IMode => {
+    return useConfigStore().mode;
+});
+const selectLevel = computed((): ILevel => {
+    return useConfigStore().level;
+});
+
+// TODO: この処理をもっとスマートに書く
+watch([selectMode, selectLevel], () => {
+    // ランキングモードでない場合は何もしない
+    if (selectMode.value !== Mode.RANKING_MODE) {
+        configInputDict.value = getDefaultConfigInputDict(FREE_MODE);
+        return;
+    }
+    configInputDict.value = getDefaultConfigInputDict(selectLevel.value);
 });
 
 const start = () => {
@@ -69,7 +92,6 @@ const start = () => {
 <style scoped>
 #setting {
     width: 250px;
-    height: 65%;
     margin-top: 50px;
     border: 2px solid #dddddd;
     border-radius: 10px;

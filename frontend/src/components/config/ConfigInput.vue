@@ -8,12 +8,15 @@
             v-on:input="onInput"
             v-bind:min="minValue"
             v-bind:max="maxValue"
+            :disabled="isRankingMode"
         />
     </label>
 </template>
 
 <script setup lang="ts">
-import { MAX_CONFIG_INPUT, MIN_CONFIG_INPUT } from "@/util/constants";
+import { useConfigStore } from "@/stores/ConfigStore";
+import { MAX_CONFIG_INPUT, MIN_CONFIG_INPUT, Mode } from "@/util/constants";
+import { computed } from "vue";
 
 interface ConfigInputProps {
     title: string;
@@ -26,6 +29,10 @@ interface ConfigInputEmits {
 const onInput = (event: Event) => {
     emit("update:value", Number((event.target as HTMLInputElement).value));
 };
+
+const isRankingMode = computed(() => {
+    return useConfigStore().mode === Mode.RANKING_MODE;
+});
 
 defineProps<ConfigInputProps>();
 const emit = defineEmits<ConfigInputEmits>();
