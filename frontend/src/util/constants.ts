@@ -1,5 +1,16 @@
 // レーンの数
 export const LANE_NUM = 7;
+// モードの種類
+export enum Mode {
+    FREE_MODE = "0",
+    RANKING_MODE = "1",
+}
+// レベルの種類
+export enum Level {
+    EASY = "0",
+    NORMAL = "1",
+    HARD = "2",
+}
 // ノーツ描画の範囲
 export const NOTE_MOTION_RANGE = 624;
 // ノーツの高さ
