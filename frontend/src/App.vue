@@ -14,8 +14,8 @@
 <script setup lang="ts">
 import Config from "./components/Config.vue";
 import GameField from "./components/GameField.vue";
-import Result from './components/Result.vue'
-import CountDown from './components/CountDown.vue'
+import Result from "./components/Result.vue";
+import CountDown from "./components/CountDown.vue";
 </script>
 
 <style scoped>

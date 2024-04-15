@@ -4,8 +4,7 @@
         <input
             type="number"
             class="setting_input"
-            v-bind:value="value"
-            v-on:input=onInput
+            v-model="value"
             v-bind:min="minValue"
             v-bind:max="maxValue"
         />
@@ -13,28 +12,23 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from "vue";
+import { useConfigStore } from "@/stores/ConfigStore";
 
 interface ConfigInputProps {
     title: string;
-    value: number;
+    setNotes: (value: number) => void;
 }
-interface ConfigInputEmits {
-    (event: 'update:value', value: number): void;
-}
-
-const onInput = (event: Event) => {
-    emit('update:value', Number((event.target as HTMLInputElement).value));
-};
-
-defineProps<ConfigInputProps>();
-const emit = defineEmits<ConfigInputEmits>();
+const props = defineProps<ConfigInputProps>();
 
 const minValue = ref<number>(0);
 const maxValue = ref<number>(1000);
 
+const value = ref<number>(useConfigStore().notesDistance);
 
-
+watch(value, (newValue) => {
+    props.setNotes(newValue);
+});
 </script>
 
 <style scoped>

@@ -16,9 +16,6 @@
 
 <script setup lang="ts">
 import Lane from "../game/Lane.vue";
-
-
-
 </script>
 
 <style scoped>

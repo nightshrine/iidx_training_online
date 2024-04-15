@@ -9,7 +9,7 @@ export const useGameStore = defineStore("keydown", {
         // ノーツの情報を保持する配列
         notesList: [[]] as number[][],
         // 次に進んでいいかどうか
-        canGoNext : true,
+        canGoNext: true,
         // タイマーのカウント
         time: 0,
         // タイマーのセットインターバル
