@@ -49,6 +49,7 @@ const configInputToPinia = ref<IConfigInputToPinia>({
     defaultValue: useConfigStore().notesDistance,
 });
 
+// 初期値を設定
 const getDefaultConfigInputDict = (data: IDataName): IConfigInputDict => {
     return {
         問題数: ConfigDefault[data].QUESTION_NUM,
@@ -72,7 +73,6 @@ const selectLevel = computed((): ILevel => {
     return useConfigStore().level;
 });
 
-// TODO: この処理をもっとスマートに書く
 watch([selectMode, selectLevel], () => {
     // ランキングモードでない場合は何もしない
     if (selectMode.value !== Mode.RANKING_MODE) {
