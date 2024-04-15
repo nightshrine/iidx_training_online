@@ -14,6 +14,10 @@ export const DEFAULT_3NOTES_RATE = 0;
 export const DEFAULT_4NOTES_RATE = 0;
 export const DEFAULT_5NOTES_RATE = 0;
 export const DEFAULT_6NOTES_RATE = 0;
+// notesの設定における最大値
+export const MAX_CONFIG_INPUT = 1000;
+// notesの設定における最小値
+export const MIN_CONFIG_INPUT = 0;
 // 何分の1秒でタイムを管理するか
 export const MSEC: number = 1000;
 export const TIME_UNIT: number = 100;

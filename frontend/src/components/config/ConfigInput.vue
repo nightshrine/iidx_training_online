@@ -13,6 +13,7 @@
 </template>
 
 <script setup lang="ts">
+import { MAX_CONFIG_INPUT, MIN_CONFIG_INPUT } from '@/util/constants';
 import { ref } from 'vue';
 
 interface ConfigInputProps {
@@ -30,10 +31,8 @@ const onInput = (event: Event) => {
 defineProps<ConfigInputProps>();
 const emit = defineEmits<ConfigInputEmits>();
 
-const minValue = ref<number>(0);
-const maxValue = ref<number>(1000);
-
-
+const minValue = MIN_CONFIG_INPUT;
+const maxValue = MAX_CONFIG_INPUT;
 
 </script>
 
