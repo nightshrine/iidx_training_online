@@ -1,5 +1,9 @@
 <template>
-    <div class="note" :style="'margin-top: ' + notesDistance + 'px'" v-if="isDisplay">
+    <div
+        class="note"
+        :style="'margin-top: ' + notesDistance + 'px'"
+        v-if="isDisplay"
+    >
         <NoteWhite v-if="color === 'white'" :is-exist="isExist" />
         <NoteBlue v-if="color === 'blue'" :is-exist="isExist" />
     </div>

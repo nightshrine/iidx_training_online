@@ -28,13 +28,14 @@ interface IResultDict {
     displayString: string;
 }
 const resultDict = computed<IResultDict[]>(() => {
-    return [{ 
-        prop: TIME, 
-        value: useGameStore().time,
-        displayString: getDisplayString(TIME, useGameStore().time),
-    }];
+    return [
+        {
+            prop: TIME,
+            value: useGameStore().time,
+            displayString: getDisplayString(TIME, useGameStore().time),
+        },
+    ];
 });
-
 </script>
 
 <style scoped>

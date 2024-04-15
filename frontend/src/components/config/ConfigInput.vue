@@ -5,7 +5,7 @@
             type="number"
             class="setting_input"
             v-bind:value="value"
-            v-on:input=onInput
+            v-on:input="onInput"
             v-bind:min="minValue"
             v-bind:max="maxValue"
         />
@@ -13,19 +13,18 @@
 </template>
 
 <script setup lang="ts">
-import { MAX_CONFIG_INPUT, MIN_CONFIG_INPUT } from '@/util/constants';
-import { ref } from 'vue';
+import { MAX_CONFIG_INPUT, MIN_CONFIG_INPUT } from "@/util/constants";
 
 interface ConfigInputProps {
     title: string;
     value: number;
 }
 interface ConfigInputEmits {
-    (event: 'update:value', value: number): void;
+    (event: "update:value", value: number): void;
 }
 
 const onInput = (event: Event) => {
-    emit('update:value', Number((event.target as HTMLInputElement).value));
+    emit("update:value", Number((event.target as HTMLInputElement).value));
 };
 
 defineProps<ConfigInputProps>();
@@ -33,7 +32,6 @@ const emit = defineEmits<ConfigInputEmits>();
 
 const minValue = MIN_CONFIG_INPUT;
 const maxValue = MAX_CONFIG_INPUT;
-
 </script>
 
 <style scoped>

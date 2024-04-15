@@ -4,15 +4,15 @@
             <h1>設定</h1>
         </div>
         <div id="setting_form">
-            
             <ConfigInputToPinia
                 :title="configInputToPinia.title"
                 :setNotes="configInputToPinia.setNotes"
             />
-            <ConfigInput v-for="title in Object.keys(configInputDict)"
+            <ConfigInput
+                v-for="title in Object.keys(configInputDict)"
                 :key="title"
                 :title="title"
-                v-model:value = "configInputDict[title]"
+                v-model:value="configInputDict[title]"
             />
             <button id="start-button" @click="start">開始</button>
             <button id="stop-button">終了</button>
@@ -30,8 +30,8 @@ import ConfigInput from "./config/ConfigInput.vue";
 import { useConfigStore } from "../stores/ConfigStore";
 import type { IConfigInputDict, IConfigInputToPinia } from "@/util/types";
 import { makeNotesList } from "@/composables/MakeNotesData";
-import { 
-    DEFAULT_QUESTION_NUM, 
+import {
+    DEFAULT_QUESTION_NUM,
     DEFAULT_1NOTES_RATE,
     DEFAULT_2NOTES_RATE,
     DEFAULT_3NOTES_RATE,
@@ -50,7 +50,7 @@ const configInputToPinia = ref<IConfigInputToPinia>({
 });
 
 const configInputDict = ref<IConfigInputDict>({
-    "問題数": DEFAULT_QUESTION_NUM,
+    問題数: DEFAULT_QUESTION_NUM,
     "1notes": DEFAULT_1NOTES_RATE,
     "2notes": DEFAULT_2NOTES_RATE,
     "3notes": DEFAULT_3NOTES_RATE,
@@ -63,8 +63,7 @@ const start = () => {
     // ノーツリストを作成
     makeNotesList(configInputDict.value);
     startCountDown();
-}
-
+};
 </script>
 
 <style scoped>

@@ -59,7 +59,7 @@ const isPressNotes = (notes: number[]) => {
     for (let i = 0; i < notes.length; i++) {
         if (notes[i] === 1 && buttonPressed[i]) {
             judgeList.push(true);
-        // 関係ないボタンを押してたらfalse
+            // 関係ないボタンを押してたらfalse
         } else if (notes[i] === 0 && buttonPressed[i]) {
             judgeList.push(false);
         } else if (notes[i] === 0 && !buttonPressed[i]) {
@@ -81,14 +81,16 @@ export const getDisplayString = (prop: string, value: number): string => {
         // 数字の桁数
         const lengthValue: number = valueStr.length;
         // 数字の後ろから何文字目に小数点があるか
-        const pointIndex: number = lengthValue - TIME_UNIT.toString().length + 1;
+        const pointIndex: number =
+            lengthValue - TIME_UNIT.toString().length + 1;
         // 小数点以下の桁数が足りない場合は0を追加
         if (pointIndex <= 0) {
             return `0.${"0".repeat(-1 * pointIndex)}${valueStr}秒`;
         }
         // 必要に応じて0を追加した数字の文字列
-        return `${valueStr.slice(0, pointIndex)}.${valueStr.slice(pointIndex)}秒`;
+        return `${valueStr.slice(0, pointIndex)}.${valueStr.slice(
+            pointIndex
+        )}秒`;
     }
     return `${value}`;
 };
-

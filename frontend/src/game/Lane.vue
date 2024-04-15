@@ -24,7 +24,9 @@ interface LaneProps {
     color: string;
 }
 const notesDistance = computed(() => useConfigStore().notesDistance);
-const displayQuestionNum = computed(() => Math.floor(NOTE_MOTION_RANGE / (NOTE_HEIGHT + notesDistance.value) ));
+const displayQuestionNum = computed(() =>
+    Math.floor(NOTE_MOTION_RANGE / (NOTE_HEIGHT + notesDistance.value))
+);
 const props = defineProps<LaneProps>();
 const notesList = computed(
     (): number[] => useGameStore().notesList[props.laneNum] ?? []

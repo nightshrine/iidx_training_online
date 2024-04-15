@@ -12,8 +12,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
-import { useConfigStore } from '@/stores/ConfigStore';
+import { ref, watch } from "vue";
+import { useConfigStore } from "@/stores/ConfigStore";
 
 interface ConfigInputProps {
     title: string;
@@ -29,7 +29,6 @@ const value = ref<number>(useConfigStore().notesDistance);
 watch(value, (newValue) => {
     props.setNotes(newValue);
 });
-
 </script>
 
 <style scoped>

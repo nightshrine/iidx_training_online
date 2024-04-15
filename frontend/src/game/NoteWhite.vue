@@ -12,7 +12,6 @@ defineProps<NoteWhiteProps>();
 </script>
 
 <style scoped>
-
 .note-white {
     width: 68px;
     height: 100%;

@@ -5,7 +5,7 @@ export const NOTE_MOTION_RANGE = 624;
 // ノーツの高さ
 export const NOTE_HEIGHT = 10;
 // レーンに対応するボタンキーコード
-export const BUTTON_KEY = ['Control', 'a', 's', 'o', '.', '-', '['];
+export const BUTTON_KEY = ["Control", "a", "s", "o", ".", "-", "["];
 // 設定の初期値
 export const DEFAULT_QUESTION_NUM = 15;
 export const DEFAULT_1NOTES_RATE = 0;
@@ -22,6 +22,6 @@ export const MIN_CONFIG_INPUT = 0;
 export const MSEC: number = 1000;
 export const TIME_UNIT: number = 100;
 // リザルトのプロパティ名
-export const TIME: string = 'タイム';
+export const TIME: string = "タイム";
 // カウントダウンの秒数
 export const COUNTDOWN_SEC: number = 3;
