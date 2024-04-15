@@ -4,6 +4,7 @@
             <h1>設定</h1>
         </div>
         <div id="setting_form">
+            
             <ConfigInputToPinia
                 :title="configInputToPinia.title"
                 :setNotes="configInputToPinia.setNotes"
@@ -24,8 +25,8 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import ConfigInputToPinia from "../config/ConfigInputToPinia.vue";
-import ConfigInput from "../config/ConfigInput.vue";
+import ConfigInputToPinia from "./config/ConfigInputToPinia.vue";
+import ConfigInput from "./config/ConfigInput.vue";
 import { useConfigStore } from "../stores/ConfigStore";
 import type { IConfigInputDict, IConfigInputToPinia } from "@/util/types";
 import { makeNotesList } from "@/composables/MakeNotesData";
