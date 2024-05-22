@@ -2,14 +2,20 @@ import { useGameStore } from "@/stores/GameStore";
 import { BUTTON_KEY, TIME, TIME_UNIT } from "../util/constants";
 import { useConfigStore } from "@/stores/ConfigStore";
 import { startTimer } from "./Timer";
-import type { IConfigInputDict } from "@/util/types";
-import { makeNotesList } from "./MakeNotesData";
 
 export const gameStart = () => {
     useConfigStore().setIsStart(true);
     registerEventListeners();
     startTimer();
 };
+
+const gameEnd = () => {
+    useConfigStore().setIsStart(false);
+    useGameStore().clearTimer(useGameStore().timer);
+    if (useConfigStore().mode === "RANKING") {
+        useConfigStore().setIsDisplayRankingForm(true);
+    }
+}
 
 const registerEventListeners = () => {
     addEventListener("keydown", (event) => {
@@ -34,13 +40,13 @@ const registerEventListeners = () => {
             }
             // ノーツがなくなったらゲーム終了
             if (useGameStore().notesList.every((notes) => notes.length === 0)) {
-                useConfigStore().setIsStart(false);
-                useGameStore().clearTimer(useGameStore().timer);
+                gameEnd();
             }
         }
     });
 
     addEventListener("keyup", (event) => {
+        if (!useConfigStore().isStart) return;
         for (let i = 0; i < useGameStore().buttonPressed.length; i++) {
             if (event.key === BUTTON_KEY[i]) {
                 useGameStore().setButtonPressed(i, false);
@@ -71,6 +77,7 @@ const isPressNotes = (notes: number[]) => {
     return judgeList.every((judge) => judge);
 };
 
+// TODO: 関数名がおかしいので修正(getDisplayTimeStringとか？)
 export const getDisplayString = (prop: string, value: number): string => {
     if (prop === TIME) {
         const valueStr: string = value.toString();

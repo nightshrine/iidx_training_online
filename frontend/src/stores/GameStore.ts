@@ -38,7 +38,7 @@ export const useGameStore = defineStore("keydown", {
         setTimer(timer: number) {
             this.timer = timer;
         },
-        // タイマーをクリアする
+        // タイマーをクリアする(カウントをリセットするわけではない)
         clearTimer(timer: number) {
             clearInterval(timer);
             timer = 0;

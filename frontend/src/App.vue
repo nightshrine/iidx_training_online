@@ -9,13 +9,22 @@
         <!-- カウントダウン -->
         <CountDown />
     </main>
+    <!-- ランキングフォーム -->
+    <RankingFormDialog v-if="isDisplayRankingForm" />
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue";
 import Config from "./components/Config.vue";
 import GameField from "./components/GameField.vue";
 import Result from "./components/Result.vue";
 import CountDown from "./components/CountDown.vue";
+import RankingFormDialog from "./components/RankingFormDialog.vue";
+import { useConfigStore } from "./stores/ConfigStore";
+
+const isDisplayRankingForm = computed(() => {
+    return useConfigStore().isDisplayRankingForm;
+});
 </script>
 
 <style scoped>
