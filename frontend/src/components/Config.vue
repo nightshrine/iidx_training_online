@@ -49,7 +49,7 @@ const configInputToPinia = ref<IConfigInputToPinia>({
     defaultValue: useConfigStore().notesDistance,
 });
 
-// 初期値を設定
+// 問題、ノーツの初期値を設定
 const getDefaultConfigInputDict = (data: IDataName): IConfigInputDict => {
     return {
         問題数: ConfigDefault[data].QUESTION_NUM,
@@ -62,8 +62,19 @@ const getDefaultConfigInputDict = (data: IDataName): IConfigInputDict => {
     };
 };
 
+// 問題、ノーツの設定値を、モードに応じて変更
+const getDataName = (mode: IMode, level: ILevel): IDataName => {
+    if (mode === Mode.RANKING_MODE) {
+        return level;
+    }
+    return FREE_MODE;
+};
+
+// 問題、ノーツの設定値を保持
 const configInputDict = ref<IConfigInputDict>(
-    getDefaultConfigInputDict(FREE_MODE)
+    getDefaultConfigInputDict(
+        getDataName(useConfigStore().mode, useConfigStore().level)
+    )
 );
 
 const selectMode = computed((): IMode => {
