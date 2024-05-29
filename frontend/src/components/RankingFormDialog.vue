@@ -2,14 +2,23 @@
     <div class="black-back">
         <div id="ranking-form-dialog">
             <h2>ランキングに登録</h2>
-            <div class="game-result" v-for="(value, key) in gameResultList" :key="key">
+            <div
+                class="game-result"
+                v-for="(value, key) in gameResultList"
+                :key="key"
+            >
                 <p>{{ key }}：</p>
                 <p>{{ value }}</p>
             </div>
-            <form id="ranking-form">
-                <input type="text" placeholder="名前" />
-                <button type="submit">送信</button>
-            </form>
+            <div id="ranking-form">
+                <input type="text" placeholder="名前" v-model="registerRankingName" />
+                <button id="ranking-form-submit" @click="RankingFormSubmit">
+                    登録
+                </button>
+            </div>
+            <button id="ranking-form-cancel" @click="RankingFormClose">
+                登録しない
+            </button>
         </div>
     </div>
 </template>
@@ -19,11 +28,27 @@ import { useConfigStore } from "../stores/ConfigStore";
 import { useGameStore } from "../stores/GameStore";
 import { TIME } from "@/util/constants";
 import { getDisplayString } from "@/composables/Game";
+import { ref } from "vue";
 
 const gameResultList = {
     level: useConfigStore().level,
     time: getDisplayString(TIME, useGameStore().time),
 };
+
+// ランキングに登録する名前
+const registerRankingName = ref("");
+
+// ランキングに登録する処理
+const RankingFormSubmit = () => {
+    // TODO: ランキングに登録する処理
+    console.log(registerRankingName.value);
+    RankingFormClose();
+}
+
+// ランキングフォームを閉じる
+const RankingFormClose = () => {
+    useConfigStore().setIsDisplayRankingForm(false);
+}
 </script>
 
 <style scoped>
@@ -71,7 +96,7 @@ const gameResultList = {
 }
 
 #ranking-form {
-    padding-top: 20px;
+    padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -84,7 +109,7 @@ const gameResultList = {
     margin-right: 10px;
     padding: 0 10px;
 }
-#ranking-form button {
+#ranking-form #ranking-form-submit {
     width: 50px;
     height: 30px;
     border: 1px solid #222222;
@@ -93,5 +118,13 @@ const gameResultList = {
     color: #ffffff;
     cursor: pointer;
 }
-
+#ranking-form-dialog #ranking-form-cancel {
+    width: 100px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    background-color: #707070;
+    color: #ffffff;
+    cursor: pointer;
+}
 </style>

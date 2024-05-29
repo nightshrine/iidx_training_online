@@ -8,7 +8,7 @@ export const useConfigStore = defineStore("config", {
     state: () => ({
         isStart: false,
         isDisplayRankingForm: false,
-        mode: Mode.FREE_MODE as IMode,
+        mode: Mode.RANKING_MODE as IMode,
         level: Level.EASY as ILevel,
         notesDistance: 100,
     }),
