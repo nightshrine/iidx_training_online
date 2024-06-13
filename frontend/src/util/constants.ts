@@ -73,3 +73,6 @@ export const TIME_UNIT: number = 100;
 export const TIME: string = "タイム";
 // カウントダウンの秒数
 export const COUNTDOWN_SEC: number = 3;
+
+// awsのAPI GatewayのURL
+export const AWS_RECORD_API_URL = "https://test.execute-api.ap-northeast-1.amazonaws.com/record";

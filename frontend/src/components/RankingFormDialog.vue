@@ -29,6 +29,8 @@ import { useGameStore } from "../stores/GameStore";
 import { TIME } from "@/util/constants";
 import { getDisplayString } from "@/composables/Game";
 import { ref } from "vue";
+import type { IRecord } from "@/util/types";
+import { RecordApiService } from "@/services/RecordApiService";
 
 const gameResultList = {
     level: useConfigStore().level,
@@ -40,9 +42,16 @@ const registerRankingName = ref("");
 
 // ランキングに登録する処理
 const RankingFormSubmit = () => {
-    // TODO: ランキングに登録する処理
-    console.log(registerRankingName.value);
-    RankingFormClose();
+    // console.log(registerRankingName.value);
+    // 記録をDBに登録するAPIを呼び出す
+    const record: IRecord = {
+        name: registerRankingName.value,
+        level: gameResultList.level,
+        time: useGameStore().time,
+    };
+    Promise.resolve(RecordApiService.recordPost(record)).then(() => {
+        RankingFormClose();
+    });
 }
 
 // ランキングフォームを閉じる
