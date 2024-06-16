@@ -73,3 +73,8 @@ export const TIME_UNIT: number = 100;
 export const TIME: string = "タイム";
 // カウントダウンの秒数
 export const COUNTDOWN_SEC: number = 3;
+
+// レコードを保存するAPIのURL
+export const RECORD_POST_API_URL = "https://30pflty4l9.execute-api.ap-northeast-1.amazonaws.com/develop/post_record";
+// レコードを一括取得するAPIのURL
+export const RECORDS_GET_API_URL = "https://30pflty4l9.execute-api.ap-northeast-1.amazonaws.com/develop/get_records";
