@@ -1,4 +1,4 @@
-import { AWS_RECORD_API_URL } from "@/util/constants";
+import { RECORD_POST_API_URL } from "@/util/constants";
 import { ApiService } from "./ApiService";
 import type { IRecord } from "@/util/types";
 
@@ -17,7 +17,7 @@ export class RecordApiService {
     public static async recordPost(
         record: IRecord
     ): Promise<void> {
-        const url = AWS_RECORD_API_URL;
+        const url = RECORD_POST_API_URL;
         await ApiService.callPostApi(url, record);
     }
 }

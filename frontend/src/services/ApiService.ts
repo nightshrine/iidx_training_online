@@ -22,7 +22,11 @@ export class ApiService {
      */
     public static async callPostApi<T>(url: string, data: T): Promise<void> {
         return axios
-            .post(url, data)
+            .post(
+                url, 
+                data,
+                { headers: { "Content-Type": "application/json" } }
+            )
             .then((response: any) => {
                 console.log(response);
             })

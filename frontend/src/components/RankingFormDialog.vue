@@ -45,7 +45,7 @@ const RankingFormSubmit = () => {
     // console.log(registerRankingName.value);
     // 記録をDBに登録するAPIを呼び出す
     const record: IRecord = {
-        name: registerRankingName.value,
+        user_name: registerRankingName.value,
         level: gameResultList.level,
         time: useGameStore().time,
     };
