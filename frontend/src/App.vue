@@ -21,10 +21,14 @@ import Result from "./components/Result.vue";
 import CountDown from "./components/CountDown.vue";
 import RankingFormDialog from "./components/RankingFormDialog.vue";
 import { useConfigStore } from "./stores/ConfigStore";
+import { RecordsService } from "./services/RecordsService";
 
 const isDisplayRankingForm = computed(() => {
     return useConfigStore().isDisplayRankingForm;
 });
+// 記録情報をストアへ格納
+RecordsService.initGetRecords();
+
 </script>
 
 <style scoped>
