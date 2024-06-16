@@ -15,7 +15,7 @@ const gameEnd = () => {
     if (useConfigStore().mode === "RANKING") {
         useConfigStore().setIsDisplayRankingForm(true);
     }
-}
+};
 
 const registerEventListeners = () => {
     addEventListener("keydown", (event) => {
@@ -77,27 +77,21 @@ const isPressNotes = (notes: number[]) => {
     return judgeList.every((judge) => judge);
 };
 
-// TODO: 関数名がおかしいので修正(getDisplayTimeStringとか？)
-export const getDisplayString = (prop: string, value: number): string => {
-    if (prop === TIME) {
-        const valueStr: string = value.toString();
-        // TIME_UNITが1の場合はそのまま秒に変換
-        if (TIME_UNIT === 1) {
-            return `${valueStr}秒`;
-        }
-        // 数字の桁数
-        const lengthValue: number = valueStr.length;
-        // 数字の後ろから何文字目に小数点があるか
-        const pointIndex: number =
-            lengthValue - TIME_UNIT.toString().length + 1;
-        // 小数点以下の桁数が足りない場合は0を追加
-        if (pointIndex <= 0) {
-            return `0.${"0".repeat(-1 * pointIndex)}${valueStr}秒`;
-        }
-        // 必要に応じて0を追加した数字の文字列
-        return `${valueStr.slice(0, pointIndex)}.${valueStr.slice(
-            pointIndex
-        )}秒`;
+// タイムを表示するための関数
+export const getDisplayTimeString = (value: number): string => {
+    const valueStr: string = value.toString();
+    // TIME_UNITが1の場合はそのまま秒に変換
+    if (TIME_UNIT === 1) {
+        return `${valueStr}秒`;
     }
-    return `${value}`;
+    // 数字の桁数
+    const lengthValue: number = valueStr.length;
+    // 数字の後ろから何文字目に小数点があるか
+    const pointIndex: number = lengthValue - TIME_UNIT.toString().length + 1;
+    // 小数点以下の桁数が足りない場合は0を追加
+    if (pointIndex <= 0) {
+        return `0.${"0".repeat(-1 * pointIndex)}${valueStr}秒`;
+    }
+    // 必要に応じて0を追加した数字の文字列
+    return `${valueStr.slice(0, pointIndex)}.${valueStr.slice(pointIndex)}秒`;
 };

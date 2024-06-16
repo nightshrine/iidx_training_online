@@ -1,8 +1,7 @@
-import { COUNTDOWN_SEC } from "@/util/constants";
 import { defineStore } from "pinia";
 
 //defineStore() を使ってストアを定義し、名前を付けてエクスポート
-export const useGameStore = defineStore("keydown", {
+export const useGameStore = defineStore("game", {
     state: () => ({
         // ボタンが押されているかどうかを保持する配列
         buttonPressed: [false, false, false, false, false, false, false],

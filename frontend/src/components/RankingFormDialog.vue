@@ -26,15 +26,14 @@
 <script setup lang="ts">
 import { useConfigStore } from "../stores/ConfigStore";
 import { useGameStore } from "../stores/GameStore";
-import { TIME } from "@/util/constants";
-import { getDisplayString } from "@/composables/Game";
+import { getDisplayTimeString } from "@/composables/Game";
 import { ref } from "vue";
 import type { IRecord } from "@/util/types";
 import { RecordApiService } from "@/services/RecordApiService";
 
 const gameResultList = {
     level: useConfigStore().level,
-    time: getDisplayString(TIME, useGameStore().time),
+    time: getDisplayTimeString(useGameStore().time),
 };
 
 // ランキングに登録する名前
@@ -42,7 +41,6 @@ const registerRankingName = ref("");
 
 // ランキングに登録する処理
 const RankingFormSubmit = () => {
-    // console.log(registerRankingName.value);
     // 記録をDBに登録するAPIを呼び出す
     const record: IRecord = {
         user_name: registerRankingName.value,
