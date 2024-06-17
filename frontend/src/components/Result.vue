@@ -13,14 +13,19 @@
                 <p>{{ result.displayString }}</p>
             </div>
         </div>
+        <Ranking v-if="selectMode === mode.RANKING_MODE" />
     </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from "vue";
 import { useGameStore } from "../stores/GameStore";
-import { TIME } from "@/util/constants";
-import { getDisplayString } from "@/composables/Game";
+import { Mode, TIME } from "@/util/constants";
+import { getDisplayTimeString } from "@/composables/Game";
+import Ranking from "@/components/Ranking.vue";
+import { useConfigStore } from "@/stores/ConfigStore";
+
+const mode = Mode;
 
 interface IResultDict {
     prop: string;
@@ -28,13 +33,18 @@ interface IResultDict {
     displayString: string;
 }
 const resultDict = computed<IResultDict[]>(() => {
-    return [{ 
-        prop: TIME, 
-        value: useGameStore().time,
-        displayString: getDisplayString(TIME, useGameStore().time),
-    }];
+    return [
+        {
+            prop: TIME,
+            value: useGameStore().time,
+            displayString: getDisplayTimeString(useGameStore().time),
+        },
+    ];
 });
 
+const selectMode = computed(() => {
+    return useConfigStore().mode;
+});
 </script>
 
 <style scoped>

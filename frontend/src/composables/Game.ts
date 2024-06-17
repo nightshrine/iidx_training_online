@@ -2,13 +2,19 @@ import { useGameStore } from "@/stores/GameStore";
 import { BUTTON_KEY, TIME, TIME_UNIT } from "../util/constants";
 import { useConfigStore } from "@/stores/ConfigStore";
 import { startTimer } from "./Timer";
-import type { IConfigInputDict } from "@/util/types";
-import { makeNotesList } from "./MakeNotesData";
 
 export const gameStart = () => {
     useConfigStore().setIsStart(true);
     registerEventListeners();
     startTimer();
+};
+
+const gameEnd = () => {
+    useConfigStore().setIsStart(false);
+    useGameStore().clearTimer(useGameStore().timer);
+    if (useConfigStore().mode === "RANKING") {
+        useConfigStore().setIsDisplayRankingForm(true);
+    }
 };
 
 const registerEventListeners = () => {
@@ -34,13 +40,13 @@ const registerEventListeners = () => {
             }
             // ノーツがなくなったらゲーム終了
             if (useGameStore().notesList.every((notes) => notes.length === 0)) {
-                useConfigStore().setIsStart(false);
-                useGameStore().clearTimer(useGameStore().timer);
+                gameEnd();
             }
         }
     });
 
     addEventListener("keyup", (event) => {
+        if (!useConfigStore().isStart) return;
         for (let i = 0; i < useGameStore().buttonPressed.length; i++) {
             if (event.key === BUTTON_KEY[i]) {
                 useGameStore().setButtonPressed(i, false);
@@ -59,7 +65,7 @@ const isPressNotes = (notes: number[]) => {
     for (let i = 0; i < notes.length; i++) {
         if (notes[i] === 1 && buttonPressed[i]) {
             judgeList.push(true);
-        // 関係ないボタンを押してたらfalse
+            // 関係ないボタンを押してたらfalse
         } else if (notes[i] === 0 && buttonPressed[i]) {
             judgeList.push(false);
         } else if (notes[i] === 0 && !buttonPressed[i]) {
@@ -71,24 +77,21 @@ const isPressNotes = (notes: number[]) => {
     return judgeList.every((judge) => judge);
 };
 
-export const getDisplayString = (prop: string, value: number): string => {
-    if (prop === TIME) {
-        const valueStr: string = value.toString();
-        // TIME_UNITが1の場合はそのまま秒に変換
-        if (TIME_UNIT === 1) {
-            return `${valueStr}秒`;
-        }
-        // 数字の桁数
-        const lengthValue: number = valueStr.length;
-        // 数字の後ろから何文字目に小数点があるか
-        const pointIndex: number = lengthValue - TIME_UNIT.toString().length + 1;
-        // 小数点以下の桁数が足りない場合は0を追加
-        if (pointIndex <= 0) {
-            return `0.${"0".repeat(-1 * pointIndex)}${valueStr}秒`;
-        }
-        // 必要に応じて0を追加した数字の文字列
-        return `${valueStr.slice(0, pointIndex)}.${valueStr.slice(pointIndex)}秒`;
+// タイムを表示するための関数
+export const getDisplayTimeString = (value: number): string => {
+    const valueStr: string = value.toString();
+    // TIME_UNITが1の場合はそのまま秒に変換
+    if (TIME_UNIT === 1) {
+        return `${valueStr}秒`;
     }
-    return `${value}`;
+    // 数字の桁数
+    const lengthValue: number = valueStr.length;
+    // 数字の後ろから何文字目に小数点があるか
+    const pointIndex: number = lengthValue - TIME_UNIT.toString().length + 1;
+    // 小数点以下の桁数が足りない場合は0を追加
+    if (pointIndex <= 0) {
+        return `0.${"0".repeat(-1 * pointIndex)}${valueStr}秒`;
+    }
+    // 必要に応じて0を追加した数字の文字列
+    return `${valueStr.slice(0, pointIndex)}.${valueStr.slice(pointIndex)}秒`;
 };
-

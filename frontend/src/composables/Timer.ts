@@ -12,7 +12,7 @@ export const startCountDown = (): void => {
             gameStart();
         }
     }, MSEC);
-}
+};
 
 // タイマー開始
 export const startTimer = (): void => {
@@ -21,7 +21,6 @@ export const startTimer = (): void => {
     // タイマーをセット
     const timer = setInterval(() => {
         useGameStore().setTime(useGameStore().time + 1);
-    }
-    , MSEC/TIME_UNIT);
+    }, MSEC / TIME_UNIT);
     useGameStore().setTimer(timer);
-}
+};

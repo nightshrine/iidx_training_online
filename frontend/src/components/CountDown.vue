@@ -5,10 +5,8 @@
 </template>
 
 <script setup lang="ts">
-import { useGameStore } from '@/stores/GameStore';
-import { computed } from 'vue';
-
-
+import { useGameStore } from "@/stores/GameStore";
+import { computed } from "vue";
 
 const countDownTime = computed(() => {
     return useGameStore().countDownTime;
@@ -18,7 +16,6 @@ const countDownTime = computed(() => {
 const isDisplay = computed(() => {
     return useGameStore().countDownTime > 0;
 });
-
 </script>
 
 <style scoped>
