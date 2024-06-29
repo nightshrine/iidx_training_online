@@ -8,6 +8,7 @@ export const useConfigStore = defineStore("config", {
     state: () => ({
         isStart: false,
         isDisplayRankingForm: false,
+        isDisplayConfigKeyBind: false,
         mode: Mode.RANKING_MODE as IMode,
         level: Level.EASY as ILevel,
         notesDistance: 100,
@@ -18,6 +19,9 @@ export const useConfigStore = defineStore("config", {
         },
         setIsDisplayRankingForm(isDisplayRankingForm: boolean) {
             this.isDisplayRankingForm = isDisplayRankingForm;
+        },
+        setIsDisplayConfigKeyBind(isDisplayConfigKeyBind: boolean) {
+            this.isDisplayConfigKeyBind = isDisplayConfigKeyBind;
         },
         setMode(mode: IMode) {
             this.mode = mode;

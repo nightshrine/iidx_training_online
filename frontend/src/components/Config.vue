@@ -17,6 +17,9 @@
             />
             <button id="start-button" @click="start">開始</button>
             <button id="stop-button">終了</button>
+            <button id="config-key-bind-button" @click="openConfigKeyBind">
+                キーバインド設定
+            </button>
             <a id="detail" href="https://github.com/nightshrine/iidx_training"
                 >詳細説明↩︎</a
             >
@@ -93,6 +96,11 @@ watch([selectMode, selectLevel], () => {
     configInputDict.value = getDefaultConfigInputDict(selectLevel.value);
 });
 
+// キーバインド設定画面を開く
+const openConfigKeyBind = () => {
+    useConfigStore().setIsDisplayConfigKeyBind(true);
+};
+
 const start = () => {
     // ノーツリストを作成
     makeNotesList(configInputDict.value);
@@ -134,6 +142,13 @@ const start = () => {
 }
 #setting #stop-button:hover {
     background-color: #5d1818;
+}
+
+#setting #config-key-bind-button {
+    background-color: #777777;
+}
+#setting #config-key-bind-button:hover {
+    background-color: #333333;
 }
 
 #setting #detail {
