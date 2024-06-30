@@ -25,7 +25,6 @@ const level = computed(() => useConfigStore().level);
 const displayRecords = computed(() => {
     const records: IRecord[] = useRecordsStore().records;
     // 記録情報の中で、指定されたレベルのものだけを抽出
-    console.log(records);
     const displayRecords = records.filter(
         (record) => record.level === level.value
     );

@@ -5,11 +5,12 @@
         </div>
         <div id="setting_form">
             <ConfigMode></ConfigMode>
+            <!-- TODO: これ下のConfigInputと統合してよさそう -->
             <ConfigInputToPinia
                 :title="configInputToPinia.title"
                 :setNotes="configInputToPinia.setNotes"
             />
-            <ConfigInput
+            <ConfigInputFreeModeNumber
                 v-for="title in Object.keys(configInputDict)"
                 :key="title"
                 :title="title"
@@ -30,18 +31,17 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
 import ConfigInputToPinia from "./config/ConfigInputToPinia.vue";
-import ConfigInput from "./config/ConfigInput.vue";
+import ConfigInputFreeModeNumber from "./config/ConfigInputFreeModeNumber.vue";
 import { useConfigStore } from "../stores/ConfigStore";
 import type {
     IConfigInputDict,
     IConfigInputToPinia,
-    IDataName,
+    IGameModeName,
     ILevel,
     IMode,
 } from "@/util/types";
-import { makeNotesList } from "@/composables/MakeNotesData";
 import { ConfigDefault, FREE_MODE, Level, Mode } from "@/util/constants";
-import { startCountDown } from "@/composables/Timer";
+import { countDownToStart } from "@/composables/Timer";
 import ConfigMode from "./config/ConfigMode.vue";
 
 const configInputToPinia = ref<IConfigInputToPinia>({
@@ -53,20 +53,27 @@ const configInputToPinia = ref<IConfigInputToPinia>({
 });
 
 // 問題、ノーツの初期値を設定
-const getDefaultConfigInputDict = (data: IDataName): IConfigInputDict => {
+const getDefaultConfigInputDict = (gameModeName: IGameModeName): IConfigInputDict => {
+    // 設定値がすでにある場合はそれを返す
+    if (
+        Object.keys(useConfigStore().configInputDict).length !== 0 &&
+        useConfigStore().mode === Mode.FREE_MODE
+    ) {
+        return useConfigStore().configInputDict;
+    }
     return {
-        問題数: ConfigDefault[data].QUESTION_NUM,
-        "1notes": ConfigDefault[data].NOTES1_RATE,
-        "2notes": ConfigDefault[data].NOTES2_RATE,
-        "3notes": ConfigDefault[data].NOTES3_RATE,
-        "4notes": ConfigDefault[data].NOTES4_RATE,
-        "5notes": ConfigDefault[data].NOTES5_RATE,
-        "6notes": ConfigDefault[data].NOTES6_RATE,
+        問題数: ConfigDefault[gameModeName].QUESTION_NUM,
+        "1notes": ConfigDefault[gameModeName].NOTES1_RATE,
+        "2notes": ConfigDefault[gameModeName].NOTES2_RATE,
+        "3notes": ConfigDefault[gameModeName].NOTES3_RATE,
+        "4notes": ConfigDefault[gameModeName].NOTES4_RATE,
+        "5notes": ConfigDefault[gameModeName].NOTES5_RATE,
+        "6notes": ConfigDefault[gameModeName].NOTES6_RATE,
     };
 };
 
 // 問題、ノーツの設定値を、モードに応じて変更
-const getDataName = (mode: IMode, level: ILevel): IDataName => {
+const getGameModeName = (mode: IMode, level: ILevel): IGameModeName => {
     if (mode === Mode.RANKING_MODE) {
         return level;
     }
@@ -76,7 +83,7 @@ const getDataName = (mode: IMode, level: ILevel): IDataName => {
 // 問題、ノーツの設定値を保持
 const configInputDict = ref<IConfigInputDict>(
     getDefaultConfigInputDict(
-        getDataName(useConfigStore().mode, useConfigStore().level)
+        getGameModeName(useConfigStore().mode, useConfigStore().level)
     )
 );
 
@@ -102,9 +109,10 @@ const openConfigKeyBind = () => {
 };
 
 const start = () => {
-    // ノーツリストを作成
-    makeNotesList(configInputDict.value);
-    startCountDown();
+    // ノーツの設定値をストアへ格納
+    useConfigStore().setConfigInputDict(configInputDict.value);
+    // カウントダウンしてからゲームを開始
+    countDownToStart();
 };
 </script>
 

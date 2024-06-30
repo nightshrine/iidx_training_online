@@ -18,11 +18,11 @@ import { useConfigStore } from "@/stores/ConfigStore";
 import { MAX_CONFIG_INPUT, MIN_CONFIG_INPUT, Mode } from "@/util/constants";
 import { computed } from "vue";
 
-interface ConfigInputProps {
+interface ConfigInputFreeModeNumberProps {
     title: string;
     value: number;
 }
-interface ConfigInputEmits {
+interface ConfigInputFreeModeNumberEmits {
     (event: "update:value", value: number): void;
 }
 
@@ -34,8 +34,8 @@ const isRankingMode = computed(() => {
     return useConfigStore().mode === Mode.RANKING_MODE;
 });
 
-defineProps<ConfigInputProps>();
-const emit = defineEmits<ConfigInputEmits>();
+defineProps<ConfigInputFreeModeNumberProps>();
+const emit = defineEmits<ConfigInputFreeModeNumberEmits>();
 
 const minValue = MIN_CONFIG_INPUT;
 const maxValue = MAX_CONFIG_INPUT;

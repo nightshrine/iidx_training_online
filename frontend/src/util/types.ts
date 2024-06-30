@@ -11,7 +11,8 @@ export interface IConfigInputToPinia {
 // 型情報を抽出する方法があるはず
 export type ILevel = "EASY" | "NORMAL" | "HARD";
 export type IMode = "FREE" | "RANKING";
-export type IDataName = ILevel | "FREE";
+// TODO: IGameModeName という名前は適切か？
+export type IGameModeName = ILevel | "FREE";
 
 // 記録を送る
 export interface IRecord {
