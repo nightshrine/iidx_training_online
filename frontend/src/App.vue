@@ -11,6 +11,8 @@
     </main>
     <!-- ランキングフォーム -->
     <RankingFormDialog v-if="isDisplayRankingForm" />
+    <!-- キーバインド設定 -->
+    <ConfigKeyBindDialog v-if="isDisplayConfigKeyBind" />
 </template>
 
 <script setup lang="ts">
@@ -20,15 +22,26 @@ import GameField from "./components/GameField.vue";
 import Result from "./components/Result.vue";
 import CountDown from "./components/CountDown.vue";
 import RankingFormDialog from "./components/RankingFormDialog.vue";
+import ConfigKeyBindDialog from "./components/ConfigKeyBindDialog.vue";
 import { useConfigStore } from "./stores/ConfigStore";
 import { RecordsService } from "./services/RecordsService";
+import { init } from "./Init";
 
+// ランキングフォームの表示
 const isDisplayRankingForm = computed(() => {
     return useConfigStore().isDisplayRankingForm;
 });
+
+// キーバインド設定の表示
+const isDisplayConfigKeyBind = computed(() => {
+    return useConfigStore().isDisplayConfigKeyBind;
+});
+
 // 記録情報をストアへ格納
 RecordsService.initGetRecords();
 
+// 初期化処理
+init();
 </script>
 
 <style scoped>

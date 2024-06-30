@@ -2,8 +2,8 @@ import { useGameStore } from "@/stores/GameStore";
 import { COUNTDOWN_SEC, MSEC, TIME_UNIT } from "@/util/constants";
 import { gameStart } from "./Game";
 
-// カウントダウン開始
-export const startCountDown = (): void => {
+// カウントダウンしてからゲームを開始
+export const countDownToStart = (): void => {
     useGameStore().setCountDownTime(COUNTDOWN_SEC);
     const countDownTimer = setInterval(() => {
         useGameStore().setCountDownTime(useGameStore().countDownTime - 1);
