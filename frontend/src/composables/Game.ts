@@ -1,9 +1,11 @@
 import { useGameStore } from "@/stores/GameStore";
-import { BUTTON_KEY, TIME, TIME_UNIT } from "../util/constants";
+import { TIME_UNIT } from "../util/constants";
 import { useConfigStore } from "@/stores/ConfigStore";
 import { startTimer } from "./Timer";
+import { makeNotesList } from "./MakeNotesData";
 
 export const gameStart = () => {
+    makeNotesList(useConfigStore().configInputDict);
     useConfigStore().setIsStart(true);
     registerEventListeners();
     startTimer();
@@ -21,7 +23,8 @@ const registerEventListeners = () => {
     addEventListener("keydown", (event) => {
         if (!useConfigStore().isStart) return;
         for (let i = 0; i < useGameStore().buttonPressed.length; i++) {
-            if (event.key === BUTTON_KEY[i]) {
+            console.log(event.key, useConfigStore().keyBindList[i]);
+            if (event.key === useConfigStore().keyBindList[i]) {
                 useGameStore().setButtonPressed(i, true);
             }
         }
@@ -48,7 +51,7 @@ const registerEventListeners = () => {
     addEventListener("keyup", (event) => {
         if (!useConfigStore().isStart) return;
         for (let i = 0; i < useGameStore().buttonPressed.length; i++) {
-            if (event.key === BUTTON_KEY[i]) {
+            if (event.key === useConfigStore().keyBindList[i]) {
                 useGameStore().setButtonPressed(i, false);
             }
             useGameStore().buttonPressed[i] = false;
@@ -59,6 +62,10 @@ const registerEventListeners = () => {
     });
 };
 
+/**
+ * ノーツが押されたかどうかを判定する関数
+ * @param notes ノーツの配列
+ */
 const isPressNotes = (notes: number[]) => {
     const buttonPressed = useGameStore().buttonPressed;
     const judgeList = [];
