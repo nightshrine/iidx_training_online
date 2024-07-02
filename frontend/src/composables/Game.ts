@@ -6,7 +6,6 @@ import { makeNotesList } from "./MakeNotesData";
 
 export const gameStart = () => {
     makeNotesList(useConfigStore().configInputDict);
-    useConfigStore().setIsStart(true);
     registerEventListeners();
     startTimer();
 };

@@ -16,12 +16,23 @@
                 :title="title"
                 v-model:value="configInputDict[title]"
             />
-            <button id="start-button" @click="start">開始</button>
-            <button id="stop-button">終了</button>
-            <button id="config-key-bind-button" @click="openConfigKeyBind">
+            <button id="start-button" @click="start" :disabled="isStart">
+                開始
+            </button>
+            <button id="stop-button" @click="stop" :disabled="!isStart">
+                終了
+            </button>
+            <button
+                id="config-key-bind-button"
+                @click="openConfigKeyBind"
+                :disabled="isStart"
+            >
                 キーバインド設定
             </button>
-            <a id="detail" href="https://github.com/nightshrine/iidx_training"
+            <a
+                id="detail"
+                href="https://github.com/nightshrine/iidx_training"
+                target="_blank"
                 >詳細説明↩︎</a
             >
         </div>
@@ -53,7 +64,9 @@ const configInputToPinia = ref<IConfigInputToPinia>({
 });
 
 // 問題、ノーツの初期値を設定
-const getDefaultConfigInputDict = (gameModeName: IGameModeName): IConfigInputDict => {
+const getDefaultConfigInputDict = (
+    gameModeName: IGameModeName
+): IConfigInputDict => {
     // 設定値がすでにある場合はそれを返す
     if (
         Object.keys(useConfigStore().configInputDict).length !== 0 &&
@@ -108,9 +121,20 @@ const openConfigKeyBind = () => {
     useConfigStore().setIsDisplayConfigKeyBind(true);
 };
 
+// ゲームスタート時にモード変更を無効化
+const isStart = computed(() => {
+    return useConfigStore().isStart;
+});
+
+// 終了（リロードを行うだけ）
+const stop = () => {
+    location.reload();
+};
+
 const start = () => {
     // ノーツの設定値をストアへ格納
     useConfigStore().setConfigInputDict(configInputDict.value);
+    useConfigStore().setIsStart(true);
     // カウントダウンしてからゲームを開始
     countDownToStart();
 };
@@ -143,6 +167,10 @@ const start = () => {
 #setting #start-button:hover {
     background-color: #18255d;
 }
+#setting #start-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
 
 #setting #stop-button {
     background-color: #ff4343;
@@ -151,12 +179,20 @@ const start = () => {
 #setting #stop-button:hover {
     background-color: #5d1818;
 }
+#setting #stop-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
 
 #setting #config-key-bind-button {
     background-color: #777777;
 }
 #setting #config-key-bind-button:hover {
     background-color: #333333;
+}
+#setting #config-key-bind-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 #setting #detail {

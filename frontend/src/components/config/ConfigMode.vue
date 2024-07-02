@@ -6,6 +6,7 @@
                 class="free-mode-button"
                 :class="{ 'is-active': selectMode === mode.FREE_MODE }"
                 @click="updateMode(mode.FREE_MODE)"
+                :disabled="isDisable"
             >
                 Free
             </button>
@@ -13,6 +14,7 @@
                 class="ranking-mode-button"
                 :class="{ 'is-active': selectMode === mode.RANKING_MODE }"
                 @click="updateMode(mode.RANKING_MODE)"
+                :disabled="isDisable"
             >
                 Ranking
             </button>
@@ -25,6 +27,7 @@
                 class="easy-button"
                 :class="{ 'is-active': selectLevel === level.EASY }"
                 @click="updateLevel(level.EASY)"
+                :disabled="isDisable"
             >
                 Easy
             </button>
@@ -32,6 +35,7 @@
                 class="normal-button"
                 :class="{ 'is-active': selectLevel === level.NORMAL }"
                 @click="updateLevel(level.NORMAL)"
+                :disabled="isDisable"
             >
                 Normal
             </button>
@@ -39,6 +43,7 @@
                 class="hard-button"
                 :class="{ 'is-active': selectLevel === level.HARD }"
                 @click="updateLevel(level.HARD)"
+                :disabled="isDisable"
             >
                 Hard
             </button>
@@ -50,7 +55,7 @@
 import { useConfigStore } from "@/stores/ConfigStore";
 import { Level, Mode } from "@/util/constants";
 import type { ILevel, IMode } from "@/util/types";
-import { computed, ref } from "vue";
+import { computed } from "vue";
 
 const level = Level;
 const mode = Mode;
@@ -68,6 +73,11 @@ const updateMode = (mode: IMode) => {
 const updateLevel = (level: ILevel) => {
     useConfigStore().setLevel(level);
 };
+
+// ゲームスタート時にモード変更を無効化
+const isDisable = computed(() => {
+    return useConfigStore().isStart;
+});
 </script>
 
 <style scoped>
