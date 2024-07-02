@@ -6,7 +6,6 @@ import { makeNotesList } from "./MakeNotesData";
 
 export const gameStart = () => {
     makeNotesList(useConfigStore().configInputDict);
-    useConfigStore().setIsStart(true);
     registerEventListeners();
     startTimer();
 };
@@ -23,7 +22,6 @@ const registerEventListeners = () => {
     addEventListener("keydown", (event) => {
         if (!useConfigStore().isStart) return;
         for (let i = 0; i < useGameStore().buttonPressed.length; i++) {
-            console.log(event.key, useConfigStore().keyBindList[i]);
             if (event.key === useConfigStore().keyBindList[i]) {
                 useGameStore().setButtonPressed(i, true);
             }
