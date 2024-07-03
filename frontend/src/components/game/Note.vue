@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import NoteWhite from "./NoteWhite.vue";
 import NoteBlue from "./NoteBlue.vue";
-import { useConfigStore } from "../stores/ConfigStore";
+import { useConfigStore } from "@/stores/ConfigStore";
 import { computed } from "vue";
 
 interface NoteProps {
