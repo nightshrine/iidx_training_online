@@ -1,3 +1,5 @@
+// TODO: 型定義はdefinitionsディレクトリを作ってそこにまとめる
+
 export interface IConfigInputDict {
     [key: string]: number;
 }
