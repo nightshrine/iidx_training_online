@@ -8,6 +8,12 @@ export interface IConfigInputToPinia {
     defaultValue: number;
 }
 
+// レーン情報
+export interface ILane {
+    color: string;
+    laneNum: number;
+}
+
 // 型情報を抽出する方法があるはず
 export type ILevel = "EASY" | "NORMAL" | "HARD";
 export type IMode = "FREE" | "RANKING";

@@ -3,19 +3,29 @@
         <div id="red-line"></div>
         <!-- レーン部分 -->
         <div id="game-lane">
-            <Lane color="white" :lane-num="0" />
-            <Lane color="blue" :lane-num="1" />
-            <Lane color="white" :lane-num="2" />
-            <Lane color="blue" :lane-num="3" />
-            <Lane color="white" :lane-num="4" />
-            <Lane color="blue" :lane-num="5" />
-            <Lane color="white" :lane-num="6" />
+            <Lane
+                v-for="lane in lanes"
+                :key="lane.laneNum"
+                :color="lane.color"
+                :lane-num="lane.laneNum"
+            />
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import Lane from "../game/Lane.vue";
+import type { ILane } from "@/util/types";
+import Lane from "@/components/game/Lane.vue";
+
+const lanes: ILane[] = [
+    { color: "white", laneNum: 0 },
+    { color: "blue", laneNum: 1 },
+    { color: "white", laneNum: 2 },
+    { color: "blue", laneNum: 3 },
+    { color: "white", laneNum: 4 },
+    { color: "blue", laneNum: 5 },
+    { color: "white", laneNum: 6 },
+];
 </script>
 
 <style scoped>
