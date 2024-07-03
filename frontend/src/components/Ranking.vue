@@ -17,7 +17,7 @@ import { computed } from "vue";
 import { useConfigStore } from "@/stores/ConfigStore";
 import { useRecordsStore } from "@/stores/RecordsStore";
 import type { IRecord } from "@/util/types";
-import { getDisplayTimeString } from "@/composables/Game";
+import { TimerService } from "@/services/TimerService";
 
 const level = computed(() => useConfigStore().level);
 
@@ -36,9 +36,8 @@ const displayRecords = computed(() => {
 
 // 時間を表示用の文字列に変換
 const getDisplayTime = (time: number): string => {
-    return getDisplayTimeString(time);
+    return TimerService.getDisplayTimeString(time);
 };
-
 </script>
 
 <style scoped>

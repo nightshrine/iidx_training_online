@@ -1,3 +1,5 @@
+// TODO: 型定義はdefinitionsディレクトリを作ってそこにまとめる
+
 export interface IConfigInputDict {
     [key: string]: number;
 }
@@ -6,6 +8,12 @@ export interface IConfigInputToPinia {
     title: string;
     setNotes: (distance: number) => void;
     defaultValue: number;
+}
+
+// レーン情報
+export interface ILane {
+    color: string;
+    laneNum: number;
 }
 
 // 型情報を抽出する方法があるはず

@@ -21,9 +21,9 @@
 import { computed } from "vue";
 import { useGameStore } from "../stores/GameStore";
 import { Mode, TIME } from "@/util/constants";
-import { getDisplayTimeString } from "@/composables/Game";
 import Ranking from "@/components/Ranking.vue";
 import { useConfigStore } from "@/stores/ConfigStore";
+import { TimerService } from '../services/TimerService';
 
 const mode = Mode;
 
@@ -37,7 +37,7 @@ const resultDict = computed<IResultDict[]>(() => {
         {
             prop: TIME,
             value: useGameStore().time,
-            displayString: getDisplayTimeString(useGameStore().time),
+            displayString: TimerService.getDisplayTimeString(useGameStore().time),
         },
     ];
 });
