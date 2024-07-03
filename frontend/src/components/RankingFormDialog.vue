@@ -26,14 +26,14 @@
 <script setup lang="ts">
 import { useConfigStore } from "../stores/ConfigStore";
 import { useGameStore } from "../stores/GameStore";
-import { getDisplayTimeString } from "@/composables/Game";
 import { ref } from "vue";
 import type { IRecord } from "@/util/types";
 import { RecordApiService } from "@/services/RecordApiService";
+import { TimerService } from '../services/TimerService';
 
 const gameResultList = {
     level: useConfigStore().level,
-    time: getDisplayTimeString(useGameStore().time),
+    time: TimerService.getDisplayTimeString(useGameStore().time),
 };
 
 // ランキングに登録する名前

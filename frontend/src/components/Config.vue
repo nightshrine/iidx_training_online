@@ -51,8 +51,8 @@ import type {
     ILevel,
     IMode,
 } from "@/util/types";
-import { ConfigDefault, FREE_MODE, Level, Mode } from "@/util/constants";
-import { countDownToStart } from "@/composables/Timer";
+import { ConfigDefault, FREE_MODE, Mode } from "@/util/constants";
+import { TimerService } from "@/services/TimerService";
 import ConfigMode from "./config/ConfigMode.vue";
 
 const configInputToPinia = ref<IConfigInputToPinia>({
@@ -136,7 +136,7 @@ const start = () => {
     useConfigStore().setConfigInputDict(configInputDict.value);
     useConfigStore().setIsStart(true);
     // カウントダウンしてからゲームを開始
-    countDownToStart();
+    TimerService.countDownToStart();
 };
 </script>
 
