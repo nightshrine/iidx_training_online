@@ -31,7 +31,7 @@
             </button>
             <a
                 id="detail"
-                href="https://github.com/nightshrine/iidx_training"
+                href="https://github.com/nightshrine/iidx_training_online"
                 target="_blank"
                 >詳細説明↩︎</a
             >
